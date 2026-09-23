@@ -7,6 +7,12 @@ const definePLugin = new webpack.DefinePlugin({
 	VERSION: time,
 });
 
+// The shared npm publishing workflow uses Node.js >= 24.7.0:
+// https://github.com/wavesplatform/publish-to-npm/blob/7d9462af686d83552d72097bf47a892e43d11f6e/.github/workflows/publish.yml
+//
+// Webpack 4 uses the legacy MD4 hashing algorithm, which is disabled by
+// OpenSSL 3 in modern Node.js versions. Therefore, the `npm run build`
+// command enables --openssl-legacy-provider until Webpack is upgraded.
 module.exports = [
 	{
 		entry: './src/index.ts',
